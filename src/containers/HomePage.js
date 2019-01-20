@@ -8,7 +8,8 @@ import * as analysisPendingSelectors from '../redux/analysispending/selectors'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Input from '@material-ui/core/Input';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const paperDivStyle = {
     paddingTop: "30px"
@@ -22,7 +23,23 @@ const paperStyle = {
 
 class HomePage extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            text: ""
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.submit = this.submit.bind(this);
+        this.refresh = this.refresh.bind(this)
+    }
+
     componentDidMount() {
+        this.refresh()
+    }
+
+    refresh(){
         this.props.loadNrOfAnalysis();
         this.props.loadNrOfAnalysisPending();
     }
@@ -32,19 +49,29 @@ class HomePage extends Component {
         return analysisCount == null || analysisPendingCount == null;
     }
 
+    handleChange(event) {
+        this.setState({text: event.target.value})
+    }
+
+    submit() {
+        this.props.submitNewAnalysis(this.state.text).then(() => {
+            this.setState({text: ""})
+            this.refresh();
+        })
+    }
+
     renderSummaryPaper() {
         const {analysisCount, analysisPendingCount} = this.props;
 
-        let pendingText = "";
+        let pendingText = ".";
         if (analysisPendingCount > 0) {
-            pendingText = analysisPendingCount + " are still being calculated."
+            pendingText = " and " + analysisPendingCount + " still being calculated."
         }
         return (
             <div style={paperDivStyle}>
                 <Paper style={paperStyle} elevation={1}>
                     <Typography variant="h5" component="h3">
-                        There are currently {analysisCount} analysis available.
-                        {pendingText}
+                        There are currently {analysisCount} analysis available{pendingText}
                     </Typography>
                     You can check them {<Link to={'/analysis'}>here</Link>}
                 </Paper>
@@ -59,7 +86,11 @@ class HomePage extends Component {
                     <Typography variant="h5" component="h3">
                         Submit new analysis
                     </Typography>
-                    You can check them {<Link to={'/analysis'}>here</Link>}
+
+                    <TextField
+                        value={this.state.text}
+                        onChange={this.handleChange}
+                    /><Button onClick={this.submit}>Submit</Button>
                 </Paper>
             </div>
         )
@@ -90,7 +121,8 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = () => (dispatch) => {
     return ({
         loadNrOfAnalysis: () => analysisActions.getNumberOfAnalysis(dispatch),
-        loadNrOfAnalysisPending: () => analysisPendingActions.getNumberOfPendingAnalysis(dispatch)
+        loadNrOfAnalysisPending: () => analysisPendingActions.getNumberOfPendingAnalysis(dispatch),
+        submitNewAnalysis: (text) => analysisPendingActions.submitAnalysisPending(text, dispatch)
     })
 };
 

@@ -33,7 +33,8 @@ export const getAnalysisPending = (dispatch) => {
     })
 };
 
-export const submitAnalysisPending = (text) => (dispatch) => {
+export const submitAnalysisPending = (text, dispatch) => {
+    console.log(text)
     dispatch({type: types.SUBMIT_ANALYSIS_PENDING, payload: text});
 
     return api.submitAnalysis(text).then(response => {

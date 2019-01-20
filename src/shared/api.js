@@ -26,7 +26,7 @@ export const getAnalysisPending =() => {
 };
 
 export const submitAnalysis =(text) => {
-    return Axios.post(host + 'sentiments/analysis/pending/', text)
+    return Axios.post(host + 'sentiments/analysis/pending/', {'text': text})
 };
 
 export const getSingleAnalysisPending =(id) => {

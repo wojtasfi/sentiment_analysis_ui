@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Route} from 'react-router-dom'
-import Analysis from "./containers/analysis/Analysis";
 import AnalysisList from "./containers/analysis/AnalysisList";
 import AnalysisPendingList from "./containers/analysispending/AnalysisPendingList";
 import HomePage from "./containers/HomePage";

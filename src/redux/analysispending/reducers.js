@@ -31,13 +31,16 @@ const analysisPendingReducer = (state = initialState, action) => {
         case types.GET_NR_OF_PENDING_FAIL:
             return storeError(state, action.payload);
 
+        //submitting
+        case types.SUBMIT_ANALYSIS_PENDING_SUCCESS:
+            return clearCurrentError(state);
+
+        case types.SUBMIT_ANALYSIS_PENDING_FAIL:
+            return storeError(state, action.payload);
 
         default:
             return state
     }
 };
-
-
-
 
 export default analysisPendingReducer

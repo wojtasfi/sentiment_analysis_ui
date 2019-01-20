@@ -1,6 +1,7 @@
 import {createSelector} from 'reselect'
 
-const extractAnalysis = state =>  state.analysis.results;
+const extractAnalysis = state => state.analysis.results;
+const extractPagination = state => state.analysis.pagination;
 
 const extractAnalysisCount = state => state.analysis.nrOfAllAnalysis;
 const extractError = state => state.error;
@@ -11,7 +12,12 @@ export const getAnalysis = createSelector(
         if (analysis === null) {
             return []
         }
-        return analysis
+        return analysis.map(analysis => {
+            return Object.assign({}, analysis, {
+                mean: analysis.mean.toFixed(2),
+                date_of_analysis: new Date(analysis.date_of_analysis).toUTCString()
+            })
+        })
     }
 );
 
@@ -32,5 +38,15 @@ export const getError = createSelector(
             return null;
         }
         return error
+    }
+);
+
+export const getPagination = createSelector(
+    extractPagination,
+    (pagination) => {
+        if (!pagination) {
+            return null;
+        }
+        return pagination
     }
 );

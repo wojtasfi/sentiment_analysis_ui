@@ -18,10 +18,10 @@ export const getNumberOfAnalysis = (dispatch) => {
 
 };
 
-export const getAnalysis = (dispatch) => {
+export const getAnalysis = (pagination, dispatch) => {
     dispatch({type: types.GET_ANALYSIS, payload: []});
 
-    return api.getAnalysis().then(response => {
+    return api.getAnalysis(pagination).then(response => {
         dispatch({
             type: types.GET_ANALYSIS_SUCCESS,
             payload: response.data
@@ -35,3 +35,30 @@ export const getAnalysis = (dispatch) => {
 
 };
 
+export const changePage = (page, dispatch) => {
+    dispatch({
+        type: types.CHANGE_PAGE,
+        payload: page
+    })
+};
+
+export const changeSize = (size, dispatch) => {
+    dispatch({
+        type: types.CHANGE_SIZE,
+        payload: size
+    })
+};
+
+export const changeSort = (sort, dispatch) => {
+    dispatch({
+        type: types.CHANGE_SORT,
+        payload: sort
+    })
+};
+
+export const changeOrder = (order, dispatch) => {
+    dispatch({
+        type: types.CHANGE_ORDER,
+        payload: order
+    })
+};

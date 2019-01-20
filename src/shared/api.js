@@ -4,31 +4,36 @@ import Axios from 'axios'
 const host = "http://localhost:8000/";
 
 //Analysis
-export const getAnalysisCount =() => {
+export const getAnalysisCount = () => {
     return Axios.get(host + 'sentiments/analysis/count/')
 };
 
-export const getAnalysis =() => {
-    return Axios.get(host + 'sentiments/analysis/')
+export const getAnalysis = (pagination) => {
+    return Axios.get(host + 'sentiments/analysis/?' + paginationParams(pagination))
 };
 
-export const getSingleAnalysis =(id) => {
+export const getSingleAnalysis = (id) => {
     return Axios.get(host + 'sentiments/analysis/' + id + '/')
 };
 
 //Analysis pending
-export const getAnalysisPendingCount =() => {
+export const getAnalysisPendingCount = () => {
     return Axios.get(host + 'sentiments/analysis/pending/count/')
 };
 
-export const getAnalysisPending =() => {
+export const getAnalysisPending = () => {
     return Axios.get(host + 'sentiments/analysis/pending/')
 };
 
-export const submitAnalysis =(text) => {
+export const submitAnalysis = (text) => {
     return Axios.post(host + 'sentiments/analysis/pending/', {'text': text})
 };
 
-export const getSingleAnalysisPending =(id) => {
+export const getSingleAnalysisPending = (id) => {
     return Axios.get(host + 'sentiments/analysis/pending/' + id + '/')
+};
+
+const paginationParams = (pagination) => {
+    const {page, size, sort, order} = pagination
+    return page + '&' + size  + '&' + sort  + '&' + order
 };

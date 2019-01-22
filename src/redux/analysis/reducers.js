@@ -38,29 +38,60 @@ const analysisReducer = (state = initialState, action) => {
             return storeError(state, action.payload);
 
         case types.CHANGE_PAGE:
-            return Object.assign({}, state.pagination, {
-                page: action.payload
-            });
+            return updatePage(state, action);
 
         case types.CHANGE_SIZE:
-            return Object.assign({}, state.pagination, {
-                size: action.payload
-            });
+            return updateSize(state, action);
 
         case types.CHANGE_SORT:
-            return Object.assign({}, state.pagination, {
-                sort: action.payload
-            });
+            return updateSort(state, action);
 
         case types.CHANGE_ORDER:
-            return Object.assign({}, state.pagination, {
-                order: action.payload
-            });
+            return updateOrder(state, action);
 
         default:
             return state
     }
 };
 
+//todo think about using combineReducers for better readability
+const updateSize = (state, action) => {
+    return {
+        ...state,
+        pagination: {
+            ...state.pagination,
+            size: action.payload,
+        }
+    };
+};
 
+const updatePage = (state, action) => {
+    return {
+        ...state,
+        pagination: {
+            ...state.pagination,
+            page: action.payload,
+        }
+    };
+};
+
+const updateSort = (state, action) => {
+    return {
+        ...state,
+        pagination: {
+            ...state.pagination,
+            sort: action.payload,
+        }
+    };
+};
+
+const updateOrder = (state, action) => {
+    return {
+        ...state,
+        pagination: {
+            ...state.pagination,
+            order: action.payload,
+        }
+    };
+};
 export default analysisReducer

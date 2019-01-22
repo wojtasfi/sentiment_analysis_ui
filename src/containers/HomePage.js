@@ -97,7 +97,7 @@ class HomePage extends Component {
     }
 
     render() {
-        if (this.pageIsLoading()) return <CircularProgress/>
+        if (this.pageIsLoading()) return <CircularProgress/>;
 
         return (
             <div className="App">
@@ -120,9 +120,9 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = () => (dispatch) => {
     return ({
-        loadNrOfAnalysis: () => analysisActions.getNumberOfAnalysis(dispatch),
-        loadNrOfAnalysisPending: () => analysisPendingActions.getNumberOfPendingAnalysis(dispatch),
-        submitNewAnalysis: (text) => analysisPendingActions.submitAnalysisPending(text, dispatch)
+        loadNrOfAnalysis: () => dispatch(analysisActions.getNumberOfAnalysis()),
+        loadNrOfAnalysisPending: () => dispatch(analysisPendingActions.getNumberOfPendingAnalysis()),
+        submitNewAnalysis: (text) => dispatch(analysisPendingActions.submitAnalysisPending(text))
     })
 };
 

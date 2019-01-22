@@ -6,38 +6,45 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import PaginationPanel from "./PaginationPanel";
 
 const styles = {
     root: {
         width: '100%',
         maxWidth: 360,
     },
+    paperDivStyle: {
+        paddingTop: "30px"
+    }
 };
 
 class AnalysisList extends Component {
 
     componentDidMount() {
-        const {loadAnalysis, pagination} = this.props;
-        loadAnalysis(pagination);
+        const {loadAnalysis, loadNrOfAnalysis} = this.props;
+        loadAnalysis();
+        loadNrOfAnalysis();
     }
 
     render() {
         return (
-            <List component="nav" styles={styles.root}>
-                {this.props.analysis.map(analysis => {
-                    return (
-                        <ListItem button key={analysis.id}>
-                            <ListItemText inset
-                                          primary={analysis.text}
-                                          secondary={analysis.date_of_analysis}
-                            />
-                            <div style={{color: "gray"}}>
-                                Mean: {analysis.mean}
-                            </div>
-                        </ListItem>)
-                })}
+            <div style={styles.paperDivStyle}>
+                <PaginationPanel/>
+                <List component="nav" styles={styles.root}>
+                    {this.props.analysis.map(analysis => {
+                        return (
+                            <ListItem button key={analysis.id}>
+                                <ListItemText primary={analysis.text}
+                                              secondary={analysis.date_of_analysis}
+                                />
+                                <div style={{color: "gray"}}>
+                                    Mean: {analysis.mean}
+                                </div>
+                            </ListItem>)
+                    })}
 
-            </List>
+                </List>
+            </div>
         )
     }
 }
@@ -55,8 +62,9 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = () => (dispatch) => {
     return ({
-        loadAnalysis: (pagination) => analysisActions.getAnalysis(pagination, dispatch),
-        loadNrOfAnalysis: () => analysisActions.getNumberOfAnalysis(dispatch)
+        loadAnalysis: () => dispatch(analysisActions.getAnalysis()),
+        loadNrOfAnalysis: () => dispatch(analysisActions.getNumberOfAnalysis()),
+
     })
 };
 

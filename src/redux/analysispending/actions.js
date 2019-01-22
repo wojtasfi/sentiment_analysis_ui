@@ -1,7 +1,7 @@
 import * as types from "./types";
 import * as api from '../../shared/api'
 
-export const getNumberOfPendingAnalysis = (dispatch) => {
+export const getNumberOfPendingAnalysis = () => (dispatch, getState) => {
     dispatch({type: types.GET_NR_OF_PENDING, payload: 0});
 
     return api.getAnalysisPendingCount().then(response => {
@@ -17,7 +17,7 @@ export const getNumberOfPendingAnalysis = (dispatch) => {
     })
 };
 
-export const getAnalysisPending = (dispatch) => {
+export const getAnalysisPending = () => (dispatch, getState) => {
     dispatch({type: types.GET_ANALYSIS_PENDING, payload: []});
 
     return api.getAnalysisPending().then(response => {
@@ -33,7 +33,7 @@ export const getAnalysisPending = (dispatch) => {
     })
 };
 
-export const submitAnalysisPending = (text, dispatch) => {
+export const submitAnalysisPending = (text) => (dispatch, getState) => {
     console.log(text)
     dispatch({type: types.SUBMIT_ANALYSIS_PENDING, payload: text});
 

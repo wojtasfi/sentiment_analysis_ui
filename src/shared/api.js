@@ -35,5 +35,8 @@ export const getSingleAnalysisPending = (id) => {
 
 const paginationParams = (pagination) => {
     const {page, size, sort, order} = pagination
-    return page + '&' + size  + '&' + sort  + '&' + order
+    return 'page=' + page + '&' +
+        'size=' + size + '&' +
+        'sort=' + sort + '&' +
+        'order=' + order
 };

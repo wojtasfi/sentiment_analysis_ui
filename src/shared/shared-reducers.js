@@ -5,7 +5,8 @@ export const storeError = (state, error) => {
 };
 
 export const clearCurrentError = (state) => {
-    return Object.assign({}, state, {
+    return {
+        ...state,
         error: null
-    });
+    }
 };

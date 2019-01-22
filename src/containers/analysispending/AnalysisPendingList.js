@@ -29,8 +29,8 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = () => (dispatch) => {
     return ({
-        loadAnalysisPending: () => analysisPendingActions.getAnalysisPending(dispatch),
-        loadNrOfPendingAnalysis: () => analysisPendingActions.getNumberOfPendingAnalysis(dispatch)
+        loadAnalysisPending: () => dispatch(analysisPendingActions.getAnalysisPending()),
+        loadNrOfPendingAnalysis: () => dispatch(analysisPendingActions.getNumberOfPendingAnalysis())
     })
 };
 

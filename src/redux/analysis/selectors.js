@@ -1,9 +1,9 @@
 import {createSelector} from 'reselect'
 
 const extractAnalysis = state => state.analysis.results;
-const extractPagination = state => state.analysis.pagination;
+const extractPagination = state => state.analysis != null ? state.analysis.pagination : null;
 
-const extractAnalysisCount = state => state.analysis.nrOfAllAnalysis;
+const extractAnalysisCount = state => state.analysis != null ? state.analysis.nrOfAllAnalysis : 0;
 const extractError = state => state.error;
 
 export const getAnalysis = createSelector(
@@ -43,10 +43,13 @@ export const getError = createSelector(
 
 export const getPagination = createSelector(
     extractPagination,
-    (pagination) => {
+    extractAnalysisCount,
+    (pagination, count) => {
         if (!pagination) {
             return null;
         }
-        return pagination
+        return Object.assign({}, pagination, {
+            pageNumber: Math.round(count/pagination.size)
+        })
     }
 );

@@ -4,6 +4,7 @@ import AnalysisList from "./containers/analysis/AnalysisList";
 import AnalysisPendingList from "./containers/analysispending/AnalysisPendingList";
 import HomePage from "./containers/HomePage";
 import Header from "./containers/Header";
+import Footer from "./containers/Footer";
 
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
                             <Route path={'/'} exact component={HomePage}/>
                             <Route path={'/analysis'} exact component={AnalysisList}/>
                             <Route path={'/analysis/pending'} exact component={AnalysisPendingList}/>
+                            <Footer/>
                         </div>
                     </BrowserRouter>
                 </div>

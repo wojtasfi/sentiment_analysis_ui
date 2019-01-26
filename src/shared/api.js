@@ -3,6 +3,20 @@ import Axios from 'axios'
 //todo externalize
 const host = "http://localhost:8000/";
 
+
+//home
+export const submitTwitterAuth = (auth) => {
+    return Axios.post(host + 'sentiments/auth/twitter/', auth)
+};
+
+export const getTwitterAuthExists = () => {
+    return Axios.get(host + 'sentiments/auth/twitter/exists')
+};
+
+export const getTwitterAuthError = () => {
+    return Axios.get(host + 'sentiments/auth/twitter/error')
+};
+
 //Analysis
 export const getAnalysisCount = () => {
     return Axios.get(host + 'sentiments/analysis/count/')

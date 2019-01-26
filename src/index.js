@@ -9,10 +9,12 @@ import { createLogger } from 'redux-logger'
 import { combineReducers } from 'redux';
 import analysisReducer from "./redux/analysis/reducers";
 import analysisPendingReducer from "./redux/analysispending/reducers";
+import homeReducer from "./redux/home/reducers";
 
 const rootReducer = combineReducers({
     analysis: analysisReducer,
-    analysisPending: analysisPendingReducer
+    analysisPending: analysisPendingReducer,
+    home: homeReducer
 });
 
 const logger = createLogger({

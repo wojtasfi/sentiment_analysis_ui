@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import * as analysisActions from "../../redux/analysis/actions";
 import * as analysisSelectors from "../../redux/analysis/selectors";
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -38,7 +37,7 @@ class AnalysisList extends Component {
                                               secondary={analysis.date_of_analysis}
                                 />
                                 <div style={{color: "gray"}}>
-                                    Mean: {analysis.mean}
+                                    Mean: {analysis.mean} %
                                 </div>
                             </ListItem>)
                     })}

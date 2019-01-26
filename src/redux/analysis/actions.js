@@ -35,6 +35,21 @@ export const getAnalysis = () => (dispatch, getState) => {
         })
 };
 
+export const getSingleAnalysis = (id) => (dispatch, getState) => {
+    dispatch({type: types.GET_SINGLE_ANALYSIS, payload: []});
+    return api.getSingleAnalysis(id).then(response => {
+        dispatch({
+            type: types.GET_SINGLE_ANALYSIS_SUCCESS,
+            payload: response.data
+        })
+    }).catch(error => {
+        dispatch({
+            type: types.GET_SINGLE_ANALYSIS_FAIL,
+            payload: error
+        })
+    })
+};
+
 export const changePage = (page) => (dispatch, getState) => {
     dispatch({
         type: types.CHANGE_PAGE,

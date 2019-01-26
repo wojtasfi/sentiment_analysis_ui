@@ -9,6 +9,7 @@ const initialState = {
         sort: 'text',
         order: 'asc'
     },
+    currentAnalysis: null,
     nrOfAllAnalysis: null,
     error: null
 };
@@ -37,6 +38,7 @@ const analysisReducer = (state = initialState, action) => {
         case types.GET_NR_OF_ANALYSIS_FAIL:
             return storeError(state, action.payload);
 
+        //pagination
         case types.CHANGE_PAGE:
             return updatePage(state, action);
 
@@ -49,6 +51,11 @@ const analysisReducer = (state = initialState, action) => {
         case types.CHANGE_ORDER:
             return updateOrder(state, action);
 
+            //single analysis
+        case types.GET_SINGLE_ANALYSIS_SUCCESS:
+            return Object.assign({}, state, {
+                currentAnalysis: action.payload
+            });
         default:
             return state
     }

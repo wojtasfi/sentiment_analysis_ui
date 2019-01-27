@@ -29,7 +29,10 @@ export const getCurrentAnalysis = createSelector(
             worst: prc(analysis.worst),
             best: prc(analysis.best),
             std: prc(analysis.std),
-            date: new Date(analysis.date_of_analysis).toUTCString()
+            date: new Date(analysis.date_of_analysis).toUTCString(),
+            days_results: analysis.days_results.sort((a,b) => {
+                return new Date(a.date) - new Date(b.date);
+            })
         });
     }
 );
@@ -52,7 +55,7 @@ export const getAnalysis = createSelector(
     }
 );
 const prc = (value) => {
-    return value.toFixed(2) * 100
+    return (value * 100).toFixed(0)
 };
 
 export const getAnalysisCount = createSelector(

@@ -6,6 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import PaginationPanel from "./PaginationPanel";
+import {withRouter} from 'react-router-dom'
 
 const styles = {
     root: {
@@ -25,21 +26,26 @@ class AnalysisList extends Component {
         loadNrOfAnalysis();
     }
 
+    renderListItem(analysis){
+         return (
+            <ListItem button key={analysis.id}>
+                <ListItemText primary={analysis.text}
+                              secondary={analysis.date_of_analysis}
+                              onClick={() =>  this.props.history.push('/analysis/detail/' + analysis.id)}
+                />
+                <div style={{color: "gray"}}>
+                    Mean: {analysis.mean} %
+                </div>
+            </ListItem>);
+    }
+
     render() {
         return (
             <div style={styles.paperDivStyle}>
                 <PaginationPanel/>
                 <List component="nav" styles={styles.root}>
                     {this.props.analysis.map(analysis => {
-                        return (
-                            <ListItem button key={analysis.id}>
-                                <ListItemText primary={analysis.text}
-                                              secondary={analysis.date_of_analysis}
-                                />
-                                <div style={{color: "gray"}}>
-                                    Mean: {analysis.mean} %
-                                </div>
-                            </ListItem>)
+                        return (this.renderListItem(analysis))
                     })}
 
                 </List>

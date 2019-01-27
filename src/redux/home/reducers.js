@@ -32,7 +32,6 @@ const homeReducer = (state = initialState, action) => {
         case types.GET_TWITTER_AUTH_ERROR_FAIL:
             return storeError(state, action.payload);
 
-
         case types.ADD_TWITTER_AUTH:
             return clearCurrentError(state);
 

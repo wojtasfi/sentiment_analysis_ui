@@ -18,7 +18,9 @@ const paperStyle = {
     paddingTop: "10px",
     paddingBottom: "10px",
     paddingLeft: "10px",
-    paddingRight: "10px"
+    paddingRight: "10px",
+    color: 'grey',
+    fontFamily: 'Sans-serif',
 };
 
 class HomePage extends Component {
@@ -39,7 +41,7 @@ class HomePage extends Component {
         this.refresh()
     }
 
-    refresh(){
+    refresh() {
         this.props.loadNrOfAnalysis();
         this.props.loadNrOfAnalysisPending();
     }
@@ -58,6 +60,24 @@ class HomePage extends Component {
             this.setState({text: ""})
             this.refresh();
         })
+    }
+
+    renderHowDoesItWorkPaper() {
+        return (
+            <div style={paperDivStyle}>
+                <Paper style={paperStyle} elevation={1}>
+                    <Typography variant="h5" component="h3">
+                        How does it work?
+                    </Typography>
+                    You can submit a phrase which you are interested in and the application will look
+                    for the most popular tweets with that phrase. Next it will evalutae the text sentiment
+                    in those tweets and give value to each of them from 100% (best) to -100% (worst). You
+                    can checkout how your favourite brand is doing, your country`s politicians or hollywood
+                    actors. Before submitting new analysis please provide you twitter api authentication data.
+                    Please note: the time of calculating one analysis may vary, depending on your PC specs.
+                </Paper>
+            </div>
+        )
     }
 
     renderSummaryPaper() {
@@ -101,6 +121,7 @@ class HomePage extends Component {
 
         return (
             <div className="App">
+                {this.renderHowDoesItWorkPaper()}
                 {this.renderSummaryPaper()}
                 {this.renderSubmitPaper()}
             </div>

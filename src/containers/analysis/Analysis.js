@@ -5,7 +5,7 @@ import * as analysisActions from "../../redux/analysis/actions";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { Chart } from "react-google-charts";
+import {Chart} from "react-google-charts";
 
 const styles = {
     root: {
@@ -15,7 +15,15 @@ const styles = {
     paper: {
         padding: 10,
         textAlign: 'center',
-        height: 150
+        height: 150,
+        fontSize: 28,
+    },
+    titlePaper: {
+        padding: 10,
+        textAlign: 'center',
+        height: 50,
+        fontFamily: 'Sans-serif',
+        weight: 400
     },
     paperChart: {
         padding: 10,
@@ -37,7 +45,7 @@ const styles = {
 class Analysis extends Component {
 
     constructor(props){
-        super(props)
+        super(props);
 
         this.state = {
                 chartVariable: 'Mean',
@@ -57,7 +65,7 @@ class Analysis extends Component {
 
     renderDataItem(title, value) {
         return (
-            <Grid item xs={4}>
+            <Grid item xs={6}>
                 <Paper style={styles.paper}
                        onClick={() => this.setState({chartVariable: title})}>
                     <div style={styles.title}>
@@ -71,10 +79,11 @@ class Analysis extends Component {
         )
     }
 
+
     renderChart(){
         const {analysis} = this.props;
         const {chartVariable} = this.state;
-        console.log(chartVariable)
+        console.log(chartVariable);
         const data = [];
         data.push(['x', chartVariable]);
         analysis.days_results.forEach( result =>{
@@ -110,7 +119,7 @@ class Analysis extends Component {
     render() {
         const {analysis} = this.props;
 
-        if (this.isLoading()) return <CircularProgress/>
+        if (this.isLoading()) return <CircularProgress/>;
 
 
         return (
@@ -118,8 +127,16 @@ class Analysis extends Component {
                 <Grid style={styles.root} container spacing={16}
                       alignItems="center"
                       justify="center">
+                    <Grid item xs={12}>
+                        <Paper style={styles.titlePaper}>
+
+                            <div style={styles.title}>
+                                {this.props.analysis.text}
+                            </div>
+                        </Paper>
+                    </Grid>
+
                     {this.renderDataItem('Mean', analysis.mean)}
-                    {this.renderDataItem('Std', analysis.std)}
                     {this.renderDataItem('Median', analysis.median)}
                     {this.renderDataItem('Best', analysis.best)}
                     {this.renderDataItem('Worst', analysis.worst)}
